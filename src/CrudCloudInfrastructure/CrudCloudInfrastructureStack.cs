@@ -81,6 +81,16 @@ namespace CrudCloudInfrastructure
                 Service = InterfaceVpcEndpointAwsService.ECR_DOCKER,
             });
 
+            vpc.AddGatewayEndpoint("s3-endpoint", new GatewayVpcEndpointOptions
+            {
+                Service = GatewayVpcEndpointAwsService.S3,
+            });
+
+            vpc.AddGatewayEndpoint("s3-endpoint", new GatewayVpcEndpointOptions
+            {
+                Service = GatewayVpcEndpointAwsService.DYNAMODB,
+            });
+
             return vpc;
         }
 
