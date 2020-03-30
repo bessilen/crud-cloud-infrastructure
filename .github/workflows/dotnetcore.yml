@@ -25,8 +25,8 @@ jobs:
     
     - name: Setup CDK
       run: |
-        npm install -g aws-cdk
+        npm install aws-cdk
         
     - name: Deploy
       run: |
-        cdk deploy --require-approval never
+        ./node_modules/aws-cdk/bin/cdk deploy --require-approval never
