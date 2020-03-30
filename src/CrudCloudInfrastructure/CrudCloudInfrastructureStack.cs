@@ -40,7 +40,6 @@ namespace CrudCloudInfrastructure
                     Runtime = Runtime.DOTNET_CORE_2_1,
                     Handler = "S3BackupFunction::S3BackupFunction.Function::FunctionHandler",
                     Code = Code.FromBucket(lambdaBucket, "S3BackupFunction.zip"),
-                    Vpc = vpc,
                     Timeout = Duration.Seconds(30),
                 });
             
