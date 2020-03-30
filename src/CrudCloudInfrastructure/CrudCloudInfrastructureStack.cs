@@ -78,6 +78,7 @@ namespace CrudCloudInfrastructure
                 {
                     new SubnetConfiguration
                     {
+                        Name = "vpc-dev-aws-subnet-configuration",
                         SubnetType = SubnetType.PUBLIC,
                     }
                 },
