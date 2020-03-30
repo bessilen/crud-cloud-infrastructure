@@ -4,7 +4,6 @@ using Amazon.CDK.AWS.EC2;
 using Amazon.CDK.AWS.ECR;
 using Amazon.CDK.AWS.ECS;
 using Amazon.CDK.AWS.ECS.Patterns;
-using Amazon.CDK.AWS.ElasticLoadBalancingV2;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.Lambda.EventSources;
 using Amazon.CDK.AWS.S3;
@@ -24,10 +23,7 @@ namespace CrudCloudInfrastructure
 
             var dynamoTitlesTable = CreateDynamoTitlesTable();
 
-            var lambdaBucket = new Bucket(this, "dev-titles-synchronisation-lambda-bucket", new BucketProps
-            {
-                 BucketName = "synchronisation-lambda-bucket",
-            });
+            var lambdaBucket = Bucket.FromBucketName(this, "dev-titles-synchronisation-lambda-bucket", "synchronisation-lambda-bucket");
 
             var titlesSynchronisationQueue = new Queue(this, "dev-titles-synchronisation-queue", new QueueProps
             {
