@@ -74,6 +74,13 @@ namespace CrudCloudInfrastructure
             var vpc = new Vpc(this, "vpc-dev-aws-sandbox", new VpcProps
             {
                 MaxAzs = 3,
+                SubnetConfiguration = new[]
+                {
+                    new SubnetConfiguration
+                    {
+                        SubnetType = SubnetType.PUBLIC,
+                    }
+                },
             });
             return vpc;
         }
