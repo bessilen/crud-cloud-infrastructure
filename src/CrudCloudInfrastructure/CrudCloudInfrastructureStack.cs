@@ -20,7 +20,7 @@ namespace CrudCloudInfrastructure
 
             var cluster = CreateCluster(vpc);
 
-            var ec2Service = CreateService(cluster, vpc);
+            var ec2Service = CreateService(cluster);
 
             var dynamoTitlesTable = CreateDynamoTitlesTable();
 
@@ -93,7 +93,7 @@ namespace CrudCloudInfrastructure
             return cluster;
         }
 
-        private ApplicationLoadBalancedEc2Service CreateService(Cluster cluster, Vpc vpc)
+        private ApplicationLoadBalancedEc2Service CreateService(Cluster cluster)
         {
             var repository = Repository.FromRepositoryAttributes(this, "dev-api-repo", new RepositoryAttributes
             {
@@ -113,7 +113,6 @@ namespace CrudCloudInfrastructure
                     },
                     MemoryLimitMiB = 256,
                     PublicLoadBalancer = true,
-                    Vpc = vpc,
                 });
         }
     }
