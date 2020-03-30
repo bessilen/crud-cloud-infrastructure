@@ -41,6 +41,7 @@ namespace CrudCloudInfrastructure
                     Handler = "S3BackupFunction::S3BackupFunction.Function::FunctionHandler",
                     Code = Code.FromBucket(lambdaBucket, "S3BackupFunction.zip"),
                     Timeout = Duration.Seconds(30),
+                    Vpc = vpc,
                 });
             
             titlesSynchronisationLambda.AddEventSource(new SqsEventSource(titlesSynchronisationQueue));
@@ -73,14 +74,6 @@ namespace CrudCloudInfrastructure
             var vpc = new Vpc(this, "vpc-dev-aws-sandbox", new VpcProps
             {
                 MaxAzs = 3,
-                SubnetConfiguration = new[]
-                {
-                    new SubnetConfiguration
-                    {
-                        Name = "vpc-dev-aws-subnet-configuration",
-                        SubnetType = SubnetType.PUBLIC,
-                    }
-                },
             });
             return vpc;
         }
