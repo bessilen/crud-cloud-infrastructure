@@ -75,6 +75,12 @@ namespace CrudCloudInfrastructure
             {
                 MaxAzs = 3,
             });
+
+            vpc.AddInterfaceEndpoint("ecr-docker-endpoint", new InterfaceVpcEndpointOptions
+            {
+                Service = InterfaceVpcEndpointAwsService.ECR_DOCKER,
+            });
+
             return vpc;
         }
 
