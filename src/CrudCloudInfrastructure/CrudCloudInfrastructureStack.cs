@@ -81,6 +81,11 @@ namespace CrudCloudInfrastructure
                 Service = InterfaceVpcEndpointAwsService.ECR_DOCKER,
             });
 
+            vpc.AddInterfaceEndpoint("sqs-endpoint", new InterfaceVpcEndpointOptions
+            {
+                Service = InterfaceVpcEndpointAwsService.SQS,
+            });
+
             vpc.AddGatewayEndpoint("s3-endpoint", new GatewayVpcEndpointOptions
             {
                 Service = GatewayVpcEndpointAwsService.S3,
