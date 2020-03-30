@@ -10,7 +10,7 @@ namespace CrudCloudInfrastructure
         public static void Main(string[] args)
         {
             var app = new App();
-            new CrudCloudInfrastructureStack(app, "CrudCloudInfrastructureStack");
+            new CrudCloudInfrastructureStack(app, "dev-aws-sandbox-stack");
             app.Synth();
         }
     }
