@@ -86,7 +86,7 @@ namespace CrudCloudInfrastructure
                 Service = GatewayVpcEndpointAwsService.S3,
             });
 
-            vpc.AddGatewayEndpoint("s3-endpoint", new GatewayVpcEndpointOptions
+            vpc.AddGatewayEndpoint("dynamo-endpoint", new GatewayVpcEndpointOptions
             {
                 Service = GatewayVpcEndpointAwsService.DYNAMODB,
             });
