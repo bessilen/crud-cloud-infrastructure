@@ -24,32 +24,45 @@ namespace CrudCloudInfrastructure
             var dynamoTitlesTable = CreateDynamoTitlesTable();
 
             var lambdaBucket = Bucket.FromBucketName(this, "dev-titles-synchronisation-lambda-bucket", "synchronisation-lambda-bucket");
+            var titlesSynchronisationQueue = CreateTitlesSynchronisationQueue();
 
-            var titlesSynchronisationQueue = new Queue(this, "dev-titles-synchronisation-queue", new QueueProps
-            {
-                QueueName = "titles-synchronisation-queue",
-            });
-
-            var titlesSynchronisationLambda =
-                new Function(this, "dev-titles-synchronisation-lambda", new FunctionProps
-                {
-                    Runtime = Runtime.DOTNET_CORE_2_1,
-                    Handler = "S3BackupFunction::S3BackupFunction.Function::FunctionHandler",
-                    Code = Code.FromBucket(lambdaBucket, "S3BackupFunction.zip"),
-                    Timeout = Duration.Seconds(30),
-                    Vpc = vpc,
-                });
-            
+            var titlesSynchronisationLambda = CreateTitlesSynchrnisationLambda(vpc, lambdaBucket);
             titlesSynchronisationLambda.AddEventSource(new SqsEventSource(titlesSynchronisationQueue));
-            
-            var titlesBackupBucket = new Bucket(this, "dev-titles-backup-bucket", new BucketProps
-            {
-                BucketName = "titles-backup-bucket",
-            });
+
+            var titlesBackupBucket = CreateTitlesBackupBucket();
 
             dynamoTitlesTable.GrantReadWriteData(ec2Service.TaskDefinition.TaskRole);
             titlesBackupBucket.GrantReadWrite(titlesSynchronisationLambda);
             titlesSynchronisationQueue.GrantSendMessages(ec2Service.TaskDefinition.TaskRole);
+        }
+
+        private Queue CreateTitlesSynchronisationQueue()
+        {
+            return new Queue(this, "dev-titles-synchronisation-queue", new QueueProps
+            {
+                QueueName = "titles-synchronisation-queue",
+            });
+        }
+
+        private Bucket CreateTitlesBackupBucket()
+        {
+            return new Bucket(this, "dev-titles-backup-bucket", new BucketProps
+            {
+                BucketName = "titles-backup-bucket",
+                RemovalPolicy = RemovalPolicy.DESTROY,
+            });
+        }
+
+        private Function CreateTitlesSynchrnisationLambda(Vpc vpc, IBucket lambdaBucket)
+        {
+            return new Function(this, "dev-titles-synchronisation-lambda", new FunctionProps
+            {
+                Runtime = Runtime.DOTNET_CORE_2_1,
+                Handler = "S3BackupFunction::S3BackupFunction.Function::FunctionHandler",
+                Code = Code.FromBucket(lambdaBucket, "S3BackupFunction.zip"),
+                Timeout = Duration.Seconds(30),
+                Vpc = vpc,
+            });
         }
 
         private Table CreateDynamoTitlesTable()
@@ -61,7 +74,8 @@ namespace CrudCloudInfrastructure
                 {
                     Name = "isbn",
                     Type = AttributeType.STRING,
-                }
+                },
+                RemovalPolicy = RemovalPolicy.DESTROY,
             });
         }
 
