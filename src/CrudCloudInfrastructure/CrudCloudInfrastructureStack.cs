@@ -83,7 +83,7 @@ namespace CrudCloudInfrastructure
         {
             var vpc = new Vpc(this, "vpc-dev-aws-sandbox", new VpcProps
             {
-                MaxAzs = 2,
+                MaxAzs = 3,
             });
 
             vpc.AddInterfaceEndpoint("ecr-docker-endpoint", new InterfaceVpcEndpointOptions
