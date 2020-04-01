@@ -4,6 +4,7 @@ using Amazon.CDK.AWS.EC2;
 using Amazon.CDK.AWS.ECR;
 using Amazon.CDK.AWS.ECS;
 using Amazon.CDK.AWS.ECS.Patterns;
+using Amazon.CDK.AWS.ElasticLoadBalancingV2;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.Lambda.EventSources;
 using Amazon.CDK.AWS.S3;
@@ -84,6 +85,7 @@ namespace CrudCloudInfrastructure
             var vpc = new Vpc(this, "vpc-dev-aws-sandbox", new VpcProps
             {
                 MaxAzs = 3,
+                NatGateways = 0,
             });
 
             vpc.AddInterfaceEndpoint("ecr-docker-endpoint", new InterfaceVpcEndpointOptions
