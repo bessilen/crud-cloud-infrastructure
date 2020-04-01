@@ -84,6 +84,7 @@ namespace CrudCloudInfrastructure
             var vpc = new Vpc(this, "vpc-dev-aws-sandbox", new VpcProps
             {
                 MaxAzs = 3,
+                NatGateways = 0,
             });
 
             vpc.AddInterfaceEndpoint("ecr-docker-endpoint", new InterfaceVpcEndpointOptions
