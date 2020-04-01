@@ -91,14 +91,34 @@ namespace CrudCloudInfrastructure
                 Service = InterfaceVpcEndpointAwsService.ECR_DOCKER,
             });
 
+            vpc.AddInterfaceEndpoint("ecr-docker-endpoint", new InterfaceVpcEndpointOptions
+            {
+                Service = InterfaceVpcEndpointAwsService.ECR,
+            });
+
             vpc.AddInterfaceEndpoint("ecs-endpoint", new InterfaceVpcEndpointOptions
             {
                 Service = InterfaceVpcEndpointAwsService.ECS,
             });
 
+            vpc.AddInterfaceEndpoint("ecs-agent-endpoint", new InterfaceVpcEndpointOptions
+            {
+                Service = InterfaceVpcEndpointAwsService.ECS_AGENT,
+            });
+
+            vpc.AddInterfaceEndpoint("ecs-telemetry-endpoint", new InterfaceVpcEndpointOptions
+            {
+                Service = InterfaceVpcEndpointAwsService.ECS_TELEMETRY,
+            });
+
             vpc.AddInterfaceEndpoint("sqs-endpoint", new InterfaceVpcEndpointOptions
             {
                 Service = InterfaceVpcEndpointAwsService.SQS,
+            });
+
+            vpc.AddInterfaceEndpoint("cloudwatch-logs-endpoint", new InterfaceVpcEndpointOptions
+            {
+                Service = InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
             });
 
             vpc.AddGatewayEndpoint("s3-endpoint", new GatewayVpcEndpointOptions
