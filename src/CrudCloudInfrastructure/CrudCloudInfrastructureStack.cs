@@ -88,6 +88,7 @@ namespace CrudCloudInfrastructure
                 {
                     new SubnetConfiguration
                     {
+                        Name = "dev-isolated-subnet",
                         SubnetType = SubnetType.ISOLATED,
                     }
                 },
