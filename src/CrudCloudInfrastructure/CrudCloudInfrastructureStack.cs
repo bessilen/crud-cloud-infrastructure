@@ -91,7 +91,7 @@ namespace CrudCloudInfrastructure
                 Service = InterfaceVpcEndpointAwsService.ECR_DOCKER,
             });
 
-            vpc.AddInterfaceEndpoint("ecr-docker-endpoint", new InterfaceVpcEndpointOptions
+            vpc.AddInterfaceEndpoint("ecr-endpoint", new InterfaceVpcEndpointOptions
             {
                 Service = InterfaceVpcEndpointAwsService.ECR,
             });
